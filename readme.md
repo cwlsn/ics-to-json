@@ -20,9 +20,9 @@ const data = icsToJson('my_calendar.ics')
 
 Result is an array of:
 
-```json
+```js
 {
-	startDate: '20180505T020000Z',
+  startDate: '20180505T020000Z',
   endDate: '20180505T060000Z',
   description: 'Big Event!',
   location: 'The place!',
