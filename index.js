@@ -2,8 +2,6 @@
 const fs = require('fs')
 
 const NEW_LINE = /\r\n|\n|\r/
-const data = fs.readFileSync('derekomusic.ics', 'utf-8')
-const lines = data.split(NEW_LINE)
 const array = []
 let currentObj = {}
 let lastKey = ''
@@ -25,48 +23,53 @@ const keyMap = {
 	[LOCATION]: 'location',
 }
 
-for (let i = 0, iLen = lines.length; i < iLen; ++i) {
-	const line = lines[i]
-	const lineData = line.split(':')
+function icsToJson(file) {
+	const data = fs.readFileSync('derekomusic.ics', 'utf-8')
+	const lines = data.split(NEW_LINE)
 
-	const key = lineData[0]
-	const value = lineData[1]
+	for (let i = 0, iLen = lines.length; i < iLen; ++i) {
+		const line = lines[i]
+		const lineData = line.split(':')
+
+		const key = lineData[0]
+		const value = lineData[1]
 
 
-	if (lineData.length < 2) {
-		if (key.startsWith(' ') && lastKey !== undefined && lastKey.length) {
-			currentObj[lastKey] += unescape(line.substr(1))
+		if (lineData.length < 2) {
+			if (key.startsWith(' ') && lastKey !== undefined && lastKey.length) {
+				currentObj[lastKey] += unescape(line.substr(1))
+			}
+			continue
 		}
-		continue
-	}
-	else {
-		lastKey = keyMap[key]
-	}
+		else {
+			lastKey = keyMap[key]
+		}
 
-	switch (key) {
-	case EVENT_START:
-		if (value === EVENT) currentObj = {}
-		break
-	case EVENT_END:
-		if (value === EVENT) array.push(currentObj)
-		break
-	case START_DATE:
-		currentObj[keyMap[START_DATE]] = value
-		break
-	case END_DATE:
-		currentObj[keyMap[END_DATE]] = value
-		break
-	case DESCRIPTION:
-		currentObj[keyMap[DESCRIPTION]] = unescape(value)
-		break
-	case SUMMARY:
-		currentObj[keyMap[SUMMARY]] = unescape(value)
-		break
-	case LOCATION:
-		currentObj[keyMap[LOCATION]] = unescape(value)
-	default:
-		continue
+		switch (key) {
+		case EVENT_START:
+			if (value === EVENT) currentObj = {}
+			break
+		case EVENT_END:
+			if (value === EVENT) array.push(currentObj)
+			break
+		case START_DATE:
+			currentObj[keyMap[START_DATE]] = value
+			break
+		case END_DATE:
+			currentObj[keyMap[END_DATE]] = value
+			break
+		case DESCRIPTION:
+			currentObj[keyMap[DESCRIPTION]] = unescape(value)
+			break
+		case SUMMARY:
+			currentObj[keyMap[SUMMARY]] = unescape(value)
+			break
+		case LOCATION:
+			currentObj[keyMap[LOCATION]] = unescape(value)
+		default:
+			continue
+		}
 	}
 }
 
-console.log(array[1])
+export default icsToJson
