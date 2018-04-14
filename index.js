@@ -23,8 +23,8 @@ const keyMap = {
 	[LOCATION]: 'location',
 }
 
-function icsToJson(file) {
-	const data = fs.readFileSync('derekomusic.ics', 'utf-8')
+const icsToJson = (file) => {
+	const data = fs.readFileSync(file, 'utf-8')
 	const lines = data.split(NEW_LINE)
 
 	for (let i = 0, iLen = lines.length; i < iLen; ++i) {
@@ -70,6 +70,7 @@ function icsToJson(file) {
 			continue
 		}
 	}
+	return array
 }
 
-export default icsToJson
+exports.default = icsToJson
