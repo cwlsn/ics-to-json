@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-const fs = require('fs')
-
 const NEW_LINE = /\r\n|\n|\r/
 const array = []
 let currentObj = {}
@@ -23,9 +20,8 @@ const keyMap = {
 	[LOCATION]: 'location',
 }
 
-const icsToJson = (file) => {
-	const data = fs.readFileSync(file, 'utf-8')
-	const lines = data.split(NEW_LINE)
+const icsToJson = (icsData) => {
+	const lines = icsData.split(NEW_LINE)
 
 	for (let i = 0, iLen = lines.length; i < iLen; ++i) {
 		const line = lines[i]
@@ -73,4 +69,4 @@ const icsToJson = (file) => {
 	return array
 }
 
-exports.default = icsToJson
+export default icsToJson
