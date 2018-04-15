@@ -4,7 +4,6 @@
   "description": "A tool to convert ICS calendars to JSON",
   "main": "dist.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel index.js -o dist.js"
   },
   "keywords": [
@@ -15,9 +14,11 @@
   ],
   "author": "Connor Wilson <me@cwlsn.com>",
   "license": "MIT",
-  "dependencies": {
-    "read-file": "^0.2.0"
+  "repository": {
+  	"type": "git",
+  	"url": "https://github.com/cwlsn/ics-to-json.git"
   },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.44",
     "@babel/core": "^7.0.0-beta.44",
