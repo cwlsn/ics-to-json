@@ -1,6 +1,6 @@
 {
   "name": "ics-to-json",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A tool to convert ICS calendars to JSON",
   "main": "dist.js",
   "scripts": {
@@ -15,8 +15,8 @@
   "author": "Connor Wilson <me@cwlsn.com>",
   "license": "MIT",
   "repository": {
-  	"type": "git",
-  	"url": "https://github.com/cwlsn/ics-to-json.git"
+    "type": "git",
+    "url": "https://github.com/cwlsn/ics-to-json.git"
   },
   "dependencies": {},
   "devDependencies": {
