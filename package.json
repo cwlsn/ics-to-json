@@ -4,7 +4,8 @@
   "description": "A tool to convert ICS calendars to JSON",
   "main": "dist.js",
   "scripts": {
-    "build": "babel index.js -o dist.js"
+    "build": "babel icsToJson.js -o dist.js",
+    "test": "jest"
   },
   "keywords": [
     "ics",
@@ -20,9 +21,12 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.44",
-    "@babel/core": "^7.0.0-beta.44",
-    "@babel/preset-env": "^7.0.0-beta.44",
-    "@babel/preset-stage-2": "^7.0.0-beta.44"
+    "@babel/cli": "7.1.2",
+    "@babel/core": "7.1.2",
+    "@babel/preset-env": "7.1.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "23.6.0",
+    "jest": "23.6.0",
+    "regenerator-runtime": "0.12.1"
   }
 }
