@@ -1,6 +1,6 @@
 {
   "name": "ics-to-json",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "A tool to convert ICS calendars to JSON",
   "main": "dist.js",
   "scripts": {
