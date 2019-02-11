@@ -9,13 +9,15 @@ const DESCRIPTION = "DESCRIPTION";
 const SUMMARY = "SUMMARY";
 const LOCATION = "LOCATION";
 const ALARM = "VALARM";
+const URL = "URL";
 
 const keyMap = {
   [START_DATE]: "startDate",
   [END_DATE]: "endDate",
   [DESCRIPTION]: "description",
   [SUMMARY]: "summary",
-  [LOCATION]: "location"
+  [LOCATION]: "location",
+  [URL]: "url"
 };
 
 const clean = string => unescape(string).trim();
@@ -33,7 +35,7 @@ const icsToJson = icsData => {
     const lineData = line.split(":");
 
     let key = lineData[0];
-    const value = lineData[1];
+    let value = lineData.length > 2 ? lineData.slice(1).join(':') : lineData[1];
 
     if (key.indexOf(";") !== -1) {
       const keyParts = key.split(";");
@@ -76,6 +78,10 @@ const icsToJson = icsData => {
         break;
       case LOCATION:
         currentObj[keyMap[LOCATION]] = clean(value);
+        break;
+      case URL:
+        currentObj[keyMap[URL]] = clean(value);
+        break;
       default:
         continue;
     }

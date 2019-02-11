@@ -8,6 +8,7 @@ SUMMARY:Access-A-Ride Pickup
 DTSTART;TZID=America/New_York:20130802T103400
 DTEND;TZID=America/New_York:20130802T110400
 LOCATION:1000 Broadway Ave.\, Brooklyn
+URL;VALUE=URI:https://www.example.com/
 DESCRIPTION: Access-A-Ride to 900 Jay St.\, Brooklyn
 STATUS:CONFIRMED
 SEQUENCE:3
@@ -22,6 +23,7 @@ SUMMARY:Access-A-Ride Pickup
 DTSTART;TZID=America/New_York:20130802T200000
 DTEND;TZID=America/New_York:20130802T203000
 LOCATION:900 Jay St.\, Brooklyn
+URL;VALUE=URI:https://www.example.com/
 DESCRIPTION: Access-A-Ride to 1000 Broadway Ave.\, Brooklyn
 STATUS:CONFIRMED
 SEQUENCE:3
@@ -39,14 +41,16 @@ const sampleResult = [
     endDate: "20130802T110400",
     description: "Access-A-Ride to 900 Jay St., Brooklyn",
     location: "1000 Broadway Ave., Brooklyn",
-    summary: "Access-A-Ride Pickup"
+    summary: "Access-A-Ride Pickup",
+    url: "https://www.example.com/"
   },
   {
     startDate: "20130802T200000",
     endDate: "20130802T203000",
     description: "Access-A-Ride to 1000 Broadway Ave., Brooklyn",
     location: "900 Jay St., Brooklyn",
-    summary: "Access-A-Ride Pickup"
+    summary: "Access-A-Ride Pickup",
+    url: "https://www.example.com/"
   }
 ];
 

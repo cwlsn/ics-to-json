@@ -19,7 +19,8 @@ var DESCRIPTION = "DESCRIPTION";
 var SUMMARY = "SUMMARY";
 var LOCATION = "LOCATION";
 var ALARM = "VALARM";
-var keyMap = (_keyMap = {}, _defineProperty(_keyMap, START_DATE, "startDate"), _defineProperty(_keyMap, END_DATE, "endDate"), _defineProperty(_keyMap, DESCRIPTION, "description"), _defineProperty(_keyMap, SUMMARY, "summary"), _defineProperty(_keyMap, LOCATION, "location"), _keyMap);
+var URL = "URL"
+var keyMap = (_keyMap = {}, _defineProperty(_keyMap, START_DATE, "startDate"), _defineProperty(_keyMap, END_DATE, "endDate"), _defineProperty(_keyMap, DESCRIPTION, "description"), _defineProperty(_keyMap, SUMMARY, "summary"), _defineProperty(_keyMap, LOCATION, "location"), _defineProperty(_keyMap, URL, "url"), _keyMap);
 
 var clean = function clean(string) {
   return unescape(string).trim();
@@ -35,8 +36,9 @@ var icsToJson = function icsToJson(icsData) {
   for (var i = 0, iLen = lines.length; i < iLen; ++i) {
     var line = lines[i];
     var lineData = line.split(":");
+
     var key = lineData[0];
-    var value = lineData[1];
+    var value = lineData.length > 2 ? lineData.slice(1).join(':') : lineData[1];
 
     if (key.indexOf(";") !== -1) {
       var keyParts = key.split(";");
@@ -86,6 +88,11 @@ var icsToJson = function icsToJson(icsData) {
 
       case LOCATION:
         currentObj[keyMap[LOCATION]] = clean(value);
+        break;
+
+      case URL:
+        currentObj[keyMap[URL]] = clean(value);
+        break;
 
       default:
         continue;
