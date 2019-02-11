@@ -36,7 +36,6 @@ var icsToJson = function icsToJson(icsData) {
   for (var i = 0, iLen = lines.length; i < iLen; ++i) {
     var line = lines[i];
     var lineData = line.split(":");
-    console.log("LINE DATA: ", lineData)
 
     var key = lineData[0];
     var value = lineData.length > 2 ? lineData.slice(1).join(':') : lineData[1];
