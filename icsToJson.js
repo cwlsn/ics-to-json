@@ -9,13 +9,17 @@ const DESCRIPTION = "DESCRIPTION";
 const SUMMARY = "SUMMARY";
 const LOCATION = "LOCATION";
 const ALARM = "VALARM";
+const RRULE = "RRULE";
+const DURATION = "DURATION";
 
 const keyMap = {
   [START_DATE]: "startDate",
   [END_DATE]: "endDate",
   [DESCRIPTION]: "description",
   [SUMMARY]: "summary",
-  [LOCATION]: "location"
+  [LOCATION]: "location",
+  [RRULE]: "rrule",
+  [DURATION]:"duration"
 };
 
 const clean = string => unescape(string).trim();
@@ -30,7 +34,7 @@ const icsToJson = icsData => {
   let isAlarm = false;
   for (let i = 0, iLen = lines.length; i < iLen; ++i) {
     const line = lines[i];
-    const lineData = line.split(":");
+    const lineData = line.split(":");   // if summary,may have : inside the summary text!
 
     let key = lineData[0];
     const value = lineData[1];
@@ -72,10 +76,21 @@ const icsToJson = icsData => {
         if (!isAlarm) currentObj[keyMap[DESCRIPTION]] = clean(value);
         break;
       case SUMMARY:
+        if ( lineData.length > 2) {
+          // summary had colon's in the text, recombine 
+          lineData.shift();
+          value = lineData.join(":");  // remove the key and then join remaining back seperated by :
+        }
         currentObj[keyMap[SUMMARY]] = clean(value);
         break;
       case LOCATION:
         currentObj[keyMap[LOCATION]] = clean(value);
+      case RRULE:
+        currentObj[keyMap[RRULE]] = clean(value);
+        break;
+      case DURATION:
+        currentObj[keyMap[DURATION]] = clean(value);
+        break;
       default:
         continue;
     }
