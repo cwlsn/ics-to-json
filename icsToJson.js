@@ -32,75 +32,68 @@ const icsToJson = icsData => {
   const lines = icsData.split(NEW_LINE);
 
   let isAlarm = false;
+  for (let i = 0, iLen = lines.length; i < iLen; ++i) {
+    const line = lines[i];
+    const lineData = line.split(":");
 
-  try {
-  
-    for (let i = 0, iLen = lines.length; i < iLen; ++i) {
-      const line = lines[i];
-      const lineData = line.split(":");
+    let key = lineData[0];
+    const value = lineData[1];
 
-      let key = lineData[0];
-      const value = lineData[1];
-
-      if (key.indexOf(";") !== -1) {
-        const keyParts = key.split(";");
-        key = keyParts[0];
-        // Maybe do something with that second part later
-      }
-
-      if (lineData.length < 2) {
-        if (key.startsWith(" ") && lastKey !== undefined && lastKey.length) {
-          currentObj[lastKey] += clean(line.substr(1));
-        }
-        continue;
-      } else {
-        lastKey = keyMap[key];
-      }
-
-      switch (key) {
-        case EVENT_START:
-          if (value === EVENT) {
-            currentObj = {};
-          } else if (value === ALARM) {
-            isAlarm = true;
-          }
-          break;
-        case EVENT_END:
-          isAlarm = false;
-          if (value === EVENT) array.push(currentObj);
-          break;
-        case START_DATE:
-          currentObj[keyMap[START_DATE]] = value;
-          break;
-        case END_DATE:
-          currentObj[keyMap[END_DATE]] = value;
-          break;
-        case DESCRIPTION:
-          if (!isAlarm) currentObj[keyMap[DESCRIPTION]] = clean(value);
-          break;
-        case SUMMARY:
-          if ( lineData.length > 2) {
-            // summary had colon's in the text, recombine 
-            lineData.shift();
-            value = lineData.join(":");  // remove the key and then join remaining back seperated by :
-          }
-          currentObj[keyMap[SUMMARY]] = clean(value);
-          break;
-        case LOCATION:
-          currentObj[keyMap[LOCATION]] = clean(value);
-        case RRULE:
-          currentObj[keyMap[RRULE]] = clean(value);
-          break;
-        case DURATION:
-          currentObj[keyMap[DURATION]] = clean(value);
-          break;
-        default:
-          continue;
-      }
+    if (key.indexOf(";") !== -1) {
+      const keyParts = key.split(";");
+      key = keyParts[0];
+      // Maybe do something with that second part later
     }
-  }
-  catch (e) {
-    continue;
+
+    if (lineData.length < 2) {
+      if (key.startsWith(" ") && lastKey !== undefined && lastKey.length) {
+        currentObj[lastKey] += clean(line.substr(1));
+      }
+      continue;
+    } else {
+      lastKey = keyMap[key];
+    }
+
+    switch (key) {
+      case EVENT_START:
+        if (value === EVENT) {
+          currentObj = {};
+        } else if (value === ALARM) {
+          isAlarm = true;
+        }
+        break;
+      case EVENT_END:
+        isAlarm = false;
+        if (value === EVENT) array.push(currentObj);
+        break;
+      case START_DATE:
+        currentObj[keyMap[START_DATE]] = value;
+        break;
+      case END_DATE:
+        currentObj[keyMap[END_DATE]] = value;
+        break;
+      case DESCRIPTION:
+        if (!isAlarm) currentObj[keyMap[DESCRIPTION]] = clean(value);
+        break;
+      case SUMMARY:
+        if ( lineData.length > 2) {
+          // summary had colon's in the text, recombine 
+          lineData.shift();
+          value = lineData.join(":");  // remove the key and then join remaining back seperated by :
+        }
+        currentObj[keyMap[SUMMARY]] = clean(value);
+        break;
+      case LOCATION:
+        currentObj[keyMap[LOCATION]] = clean(value);
+      case RRULE:
+        currentObj[keyMap[RRULE]] = clean(value);
+        break;
+      case DURATION:
+        currentObj[keyMap[DURATION]] = clean(value);
+        break;
+      default:
+        continue;
+    }
   }
   return array;
 };
