@@ -37,7 +37,7 @@ const icsToJson = icsData => {
     const lineData = line.split(":");
 
     let key = lineData[0];
-    const value = lineData[1];
+    let value = lineData[1];
 
     if (key.indexOf(";") !== -1) {
       const keyParts = key.split(";");
