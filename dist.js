@@ -95,5 +95,4 @@ var icsToJson = function icsToJson(icsData) {
   return array;
 };
 
-var _default = icsToJson;
-exports.default = _default;
+module.exports = icsToJson;
