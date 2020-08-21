@@ -4,7 +4,7 @@
   "description": "A tool to convert ICS calendars to JSON",
   "main": "dist.js",
   "scripts": {
-    "build": "babel icsToJson.js -o dist.js",
+    "build": "babel icsToJson.js -o index.js",
     "test": "jest"
   },
   "keywords": [
