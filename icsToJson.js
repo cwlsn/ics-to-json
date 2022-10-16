@@ -30,7 +30,8 @@ const icsToJson = icsData => {
   let isAlarm = false;
   for (let i = 0, iLen = lines.length; i < iLen; ++i) {
     const line = lines[i];
-    const lineData = line.split(":");
+    const colonIdx = line.indexOf(":")
+    const lineData = [line.slice(0, colonIdx), line.slice(colonIdx + 1)]
 
     let key = lineData[0];
     const value = lineData[1];
