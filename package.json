@@ -2,10 +2,16 @@
   "name": "ics-to-json",
   "version": "1.0.0",
   "description": "A tool to convert ICS calendars to JSON",
-  "main": "dist.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "babel icsToJson.js -o dist.js",
-    "test": "jest"
+    "build": "tsup",
+    "ci": "npm run build && npm run check-format && npm run check-exports && npm run lint && npm run test",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "check-exports": "attw --pack .",
+    "lint": "tsc",
+    "dev": "vitest"
   },
   "keywords": [
     "ics",
@@ -19,14 +25,18 @@
     "type": "git",
     "url": "https://github.com/cwlsn/ics-to-json.git"
   },
-  "dependencies": {},
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.cjs"
+    }
+  },
   "devDependencies": {
-    "@babel/cli": "7.1.2",
-    "@babel/core": "7.1.2",
-    "@babel/preset-env": "7.1.0",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "23.6.0",
-    "jest": "23.6.0",
-    "regenerator-runtime": "0.12.1"
+    "@arethetypeswrong/cli": "^0.17.0",
+    "prettier": "^3.4.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.6"
   }
 }
